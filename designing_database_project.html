@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Designing and Developing a Database System for a Software Company</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-transition">
+    <aside class="sidebar">
+        <div class="profile-section">
+            <a href="index.html">
+                <img src="profile_image/IMG_4934-removebg.png" alt="Profile Picture" class="profile-img">
+            </a>            <h2>Mehmet Furkan AKPINAR</h2>
+            <p class="location">Birmingham, UK</p>
+        </div>
+        <nav class="nav-links">
+            <a href="projects.html"><i class="fas fa-folder"></i> Projects</a>
+            <a href="about.html" class="about-highlight"><i class="fas fa-user"></i> About Me</a>
+            <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+        </nav>
+    </aside>
+
+    <div class="project-container">
+        <div class="project-motivation" style="margin-top: 60px; padding: 30px; background-color: #4a4a4a; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.3);">
+            <h2 style="color: #ccc; font-size: 1.5em; margin-bottom: 20px;">🧠 Project Motivation</h2>
+            <p style="line-height: 1.7; color: #ddd;">
+                This was the first project I ever did in database design—and honestly, it was so much fun that I instantly knew I'd found something I wanted to stick with. It genuinely got me excited to dive deeper into the field. I even managed to become the second-best student in my Database Design and Development module, missing first place by just two points! Still, it was a fantastic introduction and really boosted my motivation to keep improving.
+            </p>
+        </div>
+        <h1>📂 Designing and Developing a Database System for a Software Company</h1>
+
+        <h2>🗃️ Database Technology Selection</h2>
+        <p style="line-height: 1.7; color: #ddd;">I critically evaluated several database technologies, including Relational Databases, Cloud Databases, NoSQL, Object-Oriented Databases, and NewSQL. After assessing each type's strengths and limitations, relational database technology emerged as the ideal choice due to its structured approach, powerful querying capabilities, and reliability, especially for complex relational data.</p>
+
+        <h2>🔍 Database Design</h2>
+        <p style="line-height: 1.7; color: #ddd;">
+        The design phase began with creating an Entity Relationship Diagram (ERD) and detailed Relational Schema Mapping, defining relationships, keys, and structures clearly. This phase included assumptions for improved system clarity, like linking each employee to specific products and explicitly assigning maintenance teams to software versions.
+        </p>
+
+<div class="project-images" style="margin-top: 30px; margin-bottom: 30px;">
+    <h3 style="color: #ccc; margin-bottom: 10px;">📌 Entity Relationship Diagram (ERD)</h3>
+    <img src="database_design_project_images/ERD.png" alt="Entity Relationship Diagram" style="width:100%; max-width:900px; border-radius: 8px; box-shadow: 0 0 8px rgba(0,0,0,0.3); margin-bottom:30px;">
+
+    <h3 style="color: #ccc; margin-bottom: 10px;">📌 Relational Schema Mapping</h3>
+    <img src="database_design_project_images/relational_schema.png" alt="Relational Schema Mapping" style="width:100%; max-width:900px; border-radius: 8px; box-shadow: 0 0 8px rgba(0,0,0,0.3);">
+</div>
+        <h2>💻 Database Development & Implementation</h2>
+        <p style="line-height: 1.7; color: #ddd;">The physical design phase involved translating the relational schema into a practical database system, with clearly defined tables, relationships, and populated data to ensure system practicality.</p>
+
+        <h2>📑 SQL Query Demonstrations</h2>
+        <p style="line-height: 1.7; color: #ddd;">
+            I developed targeted SQL queries demonstrating database functionality, such as identifying products with specific versions, listing users who reported issues, and highlighting unresolved problems. Here are two examples from the project:
+        </p>
+        
+        <div class="query-example" style="background-color: #2a2a2a; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.3); margin-bottom: 30px;">
+            <h3 style="color: #ccc;">🔹 Internal users with issues still in progress (reported in 2023)</h3>
+            <pre style="background-color: #333; padding: 15px; border-radius: 8px; color: #fff; overflow-x: auto;">
+        select internal_users.int_user_name, f.status
+        from internal_users,
+             (select users.user_name, problem_report.status
+              from users, quality_assurance, problem_report
+              where users.user_name = quality_assurance.user_name
+                and quality_assurance.report_number = problem_report.report_num
+                and quality_assurance.report_date like '%2023%'
+                and problem_report.status like '%Progress%'
+              group by users.user_name) as f
+        where internal_users.int_user_name = f.user_name;
+            </pre>
+        </div>
+        
+        <div class="query-example" style="background-color: #2a2a2a; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.3);">
+            <h3 style="color: #ccc;">🔹 Low priority reports from 2022 not assigned to maintenance teams</h3>
+            <pre style="background-color: #333; padding: 15px; border-radius: 8px; color: #fff; overflow-x: auto;">
+        select qa.report_number, qa.report_status
+        from quality_assurance qa
+        where qa.priority_rate like '%Low%' and qa.report_date like '%2022%'
+        group by qa.report_number, qa.report_status
+        having qa.report_status != 'With Maintenance';
+            </pre>
+        </div>
+
+        <h2>🔐 Security and Access Control</h2>
+        <p style="line-height: 1.7; color: #ddd;">A robust security model was implemented to manage data access and operational permissions, defining tailored privileges for different user roles as well.</p>
+
+        
+        <a href="index.html" class="back-to-home">← Back to Home</a>
+    </div>
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Mehmet Furkan Akpınar. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/mfakpinar" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/mfakpinar" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="mailto:akpinarmehmetfurkan@gmail.com"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

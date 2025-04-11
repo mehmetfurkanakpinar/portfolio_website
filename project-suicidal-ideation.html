@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Detecting Suicide Ideation on Social Media</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-transition">
+    <aside class="sidebar">
+        <div class="profile-section">
+            <a href="index.html">
+                <img src="profile_image/IMG_4934-removebg.png" alt="Profile Picture" class="profile-img">
+            </a>            <h2>Mehmet Furkan AKPINAR</h2>
+            <p class="location">Birmingham, UK</p>
+        </div>
+        <nav class="nav-links">
+            <a href="projects.html"><i class="fas fa-folder"></i> Projects</a>
+            <a href="about.html" class="about-highlight"><i class="fas fa-user"></i> About Me</a>
+            <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+        </nav>
+    </aside>
+    <div class="project-container">
+        <div class="project-motivation" style="margin-top: 60px; padding: 30px; background-color:#4a4a4a
+
+; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.3);">
+            <h2 style="color: #ccc; font-size: 1.5em; margin-bottom: 20px;">🧠 Project Motivation</h2>
+            <p style="line-height: 1.7; color: #ddd;">
+                The idea behind this project stemmed from a deeply personal moment. A close friend of mine, who is a psychologist, once shared a tragic story about a 13-year-old child who had taken their own life. Hearing this affected me profoundly. It made me realise that suicide is not just something that affects adults — children, too, can suffer in silence, as global suicide statistics sadly confirm.
+            </p>
+            <img src="dissertation_images/suicide_statistics.png" alt="Suicide Statistics" style="max-width: 80%; margin: 20px 0; border-radius: 10px;">
+            <p style="line-height: 1.7; color: #ddd;">
+                With a background in psychology, I’ve always been interested in the intersection of mental health and technology. This project gave me the opportunity to combine my technical skills with something that genuinely matters to me — using artificial intelligence as a supportive tool in the fight against suicide.
+            </p>
+            <p style="line-height: 1.7; color: #ddd;">
+                I didn’t want this model to be just lines of code. I wanted it to reflect the urgency and emotional weight of the issue.
+            </p>
+        </div>
+        <h1>Detecting Suicide Ideation on Social Media With DistilBERT</h1>
+        
+        <p class="project-intro">
+            This project involved developing an AI model using the DistilBERT transformer to detect suicidal ideation in Reddit posts. Using a dataset from the SuicideWatch and Depression subreddits, the study combined deep learning with insights from clinical psychology to classify user-generated content as "suicide" or "non-suicide."
+        </p>
+
+        <h2 class="project-section-title">🎯 Objectives</h2>
+        <ul>
+            <li>To develop a high-performing and interpretable AI model for early detection of suicidal ideation using social media data.</li>
+            <li>To adapt DistilBERT to domain-specific mental health language through fine-tuning.</li>
+            <li>To demonstrate how transformer-based models can be applied in real-world mental health monitoring.</li>
+        </ul>
+
+        <h2 class="project-section-title">🧹 Dataset and Preprocessing</h2>
+        <p>
+            The dataset consisted of 232,074 Reddit posts, evenly labelled as “suicide” or “non-suicide.” A comprehensive preprocessing pipeline was implemented to prepare the data for model training:
+        </p>
+        <ul>
+            <li><strong>Text Cleaning:</strong> Special characters, HTML tags, emojis, and excessive punctuation were removed using regular expressions. Stop words were retained due to their contextual importance in mental health language.</li>
+            <li><strong>Tokenisation:</strong> The DistilBERT tokenizer was used to convert text into subword tokens, aiding in handling slang, misspellings, and informal language.</li>
+            <li><strong>Padding & Truncation:</strong> Each sequence was standardised to 256 tokens to ensure uniform input dimensions for the model.</li>
+            <li><strong>Dataset Splitting:</strong> Data was split into training (60%), validation (20%), and test (20%) sets with stratification to maintain class balance.</li>
+        </ul>
+
+        <h3 class="project-section-subtitle">☁️ Word Cloud Analysis</h3>
+        <p>
+            Word cloud visualisations highlighted the distinct language used across classes. Suicide-labelled posts prominently featured terms such as “life”, “want”, “feel”, “friend”, and “help”, indicating emotional intensity and social concerns. 
+        </p>
+        <img src="dissertation_images/suicide_wordcloud.png" alt="Suicide Word Cloud" style="max-width: 100%; margin-top: 20px; border-radius: 10px;" />
+        <p>
+            In contrast, non-suicide posts were more casual, with common terms like “people”, “school”, and “day”, reflecting general conversation topics.
+        </p>
+        <img src="dissertation_images/non-suicide_wordcloud.png" alt="Non-Suicide Word Cloud" style="max-width: 100%; margin-top: 20px; border-radius: 10px;" />
+
+        <h2 class="project-section-title">🧠 Model Development</h2>
+        <p>
+            A pre-trained DistilBERT model was fine-tuned for binary classification by adding a dense classification head. Training was conducted using the AdamW optimiser (learning rate: 2e-5, weight decay: 5e-4), with a batch size of 8 over 5 epochs. Early stopping was applied to avoid overfitting.
+        </p>
+
+        <h2 class="project-section-title">📊 Performance</h2>
+        <ul>
+            <li>Accuracy: 97.96%</li>
+            <li>Precision: 98.02%</li>
+            <li>Recall: 97.89%</li>
+            <li>F1 Score: 97.96%</li>
+        </ul>
+        <p>
+            The confusion matrix indicated strong performance on both classes, although a small number of suicide cases were missed, emphasising the importance of improving recall.
+        </p>
+        <img src="dissertation_images/confusion_matrix.png" alt="Confusion Matrix" style="max-width: 100%; margin-top: 20px; border-radius: 10px;" />
+
+        <h2 class="project-section-title">💬 Discussion</h2>
+        <p>
+            Despite the high accuracy, the model's reliance on a single data source (Reddit) and English-only language limits its generalisability. Future improvements should include multilingual and multimodal datasets, and integration of explainable AI techniques to enhance model transparency.
+        </p>
+
+        <h2 class="project-section-title">⚖️ Ethical Considerations</h2>
+        <p>
+            Handling sensitive mental health data required careful attention to privacy, bias, and the implications of misclassification. The model is intended to support—not replace—clinical judgment in suicide prevention.
+        </p>
+        
+        <a href="index.html" class="back-to-home">← Back to Home</a>
+    </div>
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Mehmet Furkan Akpınar. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/mfakpinar" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/mfakpinar" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="mailto:akpinarmehmetfurkan@gmail.com"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

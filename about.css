@@ -1,0 +1,126 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Comic Neue', cursive;
+    background-color: #fef9f3; /* cream white */
+    color: #3e2f4c;
+    overflow-x: hidden;
+}
+
+header {
+    text-align: center;
+    padding: 60px 20px 20px;
+    animation: fadeDown 1s ease-in-out;
+}
+
+header h1 {
+    font-size: 3em;
+    color: #9c27b0; /* vibrant purple */
+    margin-bottom: 0.2em;
+}
+
+header p {
+    font-size: 1.2em;
+    color: #ff4081; /* vibrant pink */
+}
+
+.back-btn {
+    display: inline-block;
+    margin: 40px auto;
+    padding: 10px 20px;
+    background-color: #03a9f4;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: #b3e5fc;
+}
+
+.about-me-intro {
+    max-width: 1000px;
+    margin: 50px auto;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    animation: fadeUp 1.2s ease-in-out;
+}
+
+.about-me-intro h2 {
+    color: #9c27b0;
+    margin-bottom: 20px;
+    font-size: 2.4em;
+    font-weight: 900;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+.about-me-intro h3 {
+    color: #7b1fa2;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    font-size: 1.7em;
+    font-weight: 800;
+
+}
+
+.about-me-intro p {
+    font-size: 1.1em;
+    color: #4e3a5e;
+    line-height: 1.7;
+}
+
+@keyframes fadeDown {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.hobbies-section {
+    max-width: 1000px;
+    margin: 50px auto;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    animation: fadeUp 1.2s ease-in-out;
+}
+
+.hobbies-section h2 {
+    color: #3f51b5;
+    margin-bottom: 20px;
+    font-size: 2.2em;
+    font-weight: 800;
+    text-align: center;
+}
+
+.hobbies-section ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.hobbies-section li {
+    font-size: 1.15em;
+    margin-bottom: 15px;
+    color: #3e2f4c;
+    line-height: 1.6;
+}

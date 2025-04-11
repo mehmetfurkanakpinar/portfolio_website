@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap">
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Furkan's Data Portfolio</title>
+</head>
+<body class="page-transition">
+    <aside class="sidebar">
+        <div class="profile-section">
+            <a href="index.html">
+                <img src="profile_image/IMG_4934-removebg.png" alt="Profile Picture" class="profile-img">
+            </a>            <h2>Mehmet Furkan AKPINAR</h2>
+            <p class="location">Birmingham, UK</p>
+        </div>
+        <nav class="nav-links">
+            <a href="projects.html"><i class="fas fa-folder"></i> Projects</a>
+            <a href="about.html" class="about-highlight"><i class="fas fa-user"></i> About Me</a>
+            <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+        </nav>
+        <div class="download-cv">
+            <a href="assets/Furkan_AKPINAR_CV.pdf" target="_blank" class="cv-button">
+                <i class="fas fa-file-download"></i> Download my CV
+            </a>
+        </div>
+    </aside>
+
+    
+    <main class="main-content">
+        <div class="top-accent-text">Welcome to My Portfolio</div>
+        <div class="top-accent-line"></div>
+        <section class="intro-section">
+            <div class="bg-blob part1"></div>
+            <div class="bg-blob part2"></div>       
+            <p id="typewriter"></p>
+        </section>
+        
+        <section class="skills-section">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-item">SQL</div>
+                <div class="skill-item">Python</div>
+                <div class="skill-item">Tableau</div>
+                <div class="skill-item">Excel</div>
+                <div class="skill-item">HTML</div>
+                <div class="skill-item">CSS</div>
+                <div class="skill-item">JavaScript</div>
+                <div class="skill-item">Machine Learning</div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects-section">
+            <h2>Projects</h2>
+            <div class="project-card">
+                <img src="thumbnails/suicide_thumbnail.png" alt="Thumbnail" class="project-thumbnail">
+                <div class="project-info">
+                    <h3><a href="project-suicidal-ideation.html">Detecting Suicidal Ideation on Social Media with AI</a></h3>
+                    <!-- <a href="project-suicidal-ideation.html"><h3>Detecting Suicidal Ideation on Social Media with AI</h3></a> -->
+                    <p>Capstone project using DistilBERT to identify possible suicidal ideation from text data.</p>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <img src="thumbnails/database_thumbnail.png" alt="Thumbnail" class="project-thumbnail">
+                <div class="project-info">
+                    <h3><a href="designing_database_project.html">Designing a Database System for a Software Company</a></h3>
+                    <p>I aimed to create a robust and flexible relational database system tailored specifically for a software company’s diverse needs.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="thumbnails/eda_thumbnail.png" alt="Thumbnail" class="project-thumbnail">
+                <div class="project-info">
+                    <h3><a href="EDA_project.html">Exploratory Data Analysis on Layoffs Dataset with SQL and Tableau</a></h3>
+                    <p>Performed SQL-based exploratory analysis on global layoff trends and visualized key insights using Tableau.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="thumbnails/turkish_palate_thumbnail.png" alt="Thumbnail" class="project-thumbnail">
+                <div class="project-info">
+                    <h3><a href="turkish_palate.html">Turkish Cuisine Restaurant Website</a></h3>
+                    <p>A responsive and interactive website built with HTML, CSS, and JavaScript.</p>
+                </div>
+            </div>
+            
+        </section>
+        <div class="bottom-accent-line"></div>
+    </main>
+    
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Mehmet Furkan Akpınar. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/mehmetfurkanakpinar" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/mehmetfurkanakpinar" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="mailto:akpinarmehmetfurkan@gmail.com"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

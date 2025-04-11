@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>SQL EDA on Layoffs Data</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-transition">
+    <aside class="sidebar">
+        <div class="profile-section">
+            <a href="index.html">
+                <img src="profile_image/IMG_4934-removebg.png" alt="Profile Picture" class="profile-img">
+            </a>
+            <h2>Mehmet Furkan AKPINAR</h2>
+            <p class="location">Birmingham, UK</p>
+        </div>
+        <nav class="nav-links">
+            <a href="projects.html"><i class="fas fa-folder"></i> Projects</a>
+            <a href="about.html" class="about-highlight"><i class="fas fa-user"></i> About Me</a>
+            <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+        </nav>
+    </aside>
+
+    <div class="project-container">
+        <div class="project-motivation" style="margin-top: 60px; padding: 30px; background-color: #4a4a4a; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.3);">
+            <h2 style="color: #ccc; font-size: 1.5em; margin-bottom: 20px;">🧠 Project Motivation</h2>
+            <p style="line-height: 1.7; color: #ddd;">
+                Layoffs have been a critical global issue, especially during times of economic uncertainty. I wanted to dive deep into a real-world dataset to explore the dynamics behind massive layoffs across industries, countries, and funding stages.
+            </p>
+            <p style="line-height: 1.7; color: #ddd;">
+                This project allowed me to strengthen my SQL skills through practical analysis, while also gaining insights into company behaviour and market responses during turbulent times.
+            </p>
+        </div>
+
+        <h1>Explaratory Data Analysis on Layoffs Data</h1>
+        <p class="project-intro">
+            This project involved analysing layoff trends using SQL to explore how industries, countries, and funding stages were impacted during global economic shifts. A comprehensive exploratory data analysis was conducted on a public dataset, using various SQL techniques and queries to extract meaningful insights.
+        </p>
+
+        <section class="project-details">
+            <h2 class="project-section-title">🎯 Objectives</h2>
+            <ul>
+                <li>To explore real-world layoff data using SQL.</li>
+                <li>To uncover trends related to industry, funding stages, and timeline.</li>
+                <li>To practice analytical thinking using window functions, CTEs, and aggregate functions.</li>
+            </ul>
+
+            <h2 class="project-section-title">🛠️ Techniques Used</h2>
+            <ul>
+                <li>Aggregation and filtering (GROUP BY, HAVING, WHERE)</li>
+                <li>Time-based analysis (YEAR, SUBSTRING)</li>
+                <li>Window functions (DENSE_RANK, ROW_NUMBER, OVER())</li>
+                <li>Common table expressions (WITH)</li>
+                <li>Subqueries and derived tables</li>
+            </ul>
+
+            <h2 class="project-section-title">💻 Sample SQL Queries</h2>
+            <p class="query-title">Monthly Rolling Total of Layoffs</p>
+            <div class="query-block">
+                <pre><code>
+WITH rolling_total AS (
+    SELECT SUBSTRING(`date`, 1, 7) AS `month`,
+           SUM(total_laid_off) AS total_off
+    FROM layoffs_staging2
+    WHERE SUBSTRING(`date`, 1, 7) IS NOT NULL
+    GROUP BY `month`
+)
+SELECT `month`, total_off,
+       SUM(total_off) OVER(ORDER BY `month`) AS rolling_total;
+                </code></pre>
+            </div>
+
+            <p class="query-title">Top 5 companies with the highest layoffs per year</p>
+            <div class="query-block">
+                <pre><code>
+WITH company_year(company, year, total_laid_off) AS (
+    SELECT company, YEAR(`date`), SUM(total_laid_off)
+    FROM layoffs_staging2
+    GROUP BY company, YEAR(`date`)
+),
+company_year_ranked AS (
+    SELECT *, DENSE_RANK() OVER(PARTITION BY year ORDER BY total_laid_off DESC) AS ranking
+    FROM company_year
+)
+SELECT *
+FROM company_year_ranked
+WHERE ranking <= 5;
+                </code></pre>
+            </div>
+
+            <p class="query-title">Industries with total layoffs exceeding 10000</p>
+            <div class="query-block">
+                <pre><code>
+SELECT industry, 
+       SUM(total_laid_off) AS total_layoffs, 
+       SUM(funds_raised_millions) AS total_funding
+FROM layoffs_staging2
+GROUP BY industry
+HAVING SUM(total_laid_off) > 10000
+ORDER BY total_funding DESC;
+                </code></pre>
+            </div>
+
+            <p class="query-title">Year-based Post-IPO industry analysis</p>
+            <div class="query-block">
+                <pre><code>
+WITH top_industry_yearly AS (
+    SELECT
+        YEAR(`date`) AS year,
+        industry,
+        SUM(total_laid_off) AS total_layoff,
+        ROW_NUMBER() OVER(PARTITION BY YEAR(`date`) ORDER BY SUM(total_laid_off) DESC) AS ranked_industries
+    FROM layoffs_staging2
+    WHERE stage = 'Post-IPO'
+    GROUP BY year, industry
+),
+top_company_in_industry AS (
+    SELECT
+        YEAR(`date`) AS year,
+        industry,
+        company,
+        SUM(total_laid_off) AS company_layoff
+    FROM layoffs_staging2
+    GROUP BY YEAR(`date`), industry, company
+)
+SELECT
+    t1.year,
+    t1.industry,
+    t2.company,
+    t2.company_layoff
+FROM top_industry_yearly t1
+JOIN top_company_in_industry t2
+    ON t1.year = t2.year AND t1.industry = t2.industry
+WHERE t1.ranked_industries = 1
+ORDER BY t1.year, t2.company_layoff DESC;
+                </code></pre>
+            </div>
+
+            <h2 class="project-section-title">📊 Key Insights</h2>
+            <ul>
+                <li>100% layoff rates occurred even in well-funded companies.</li>
+                <li>Post-IPO companies showed higher-than-average layoff percentages.</li>
+                <li>Consumer and Tech industries were consistently among the most impacted sectors.</li>
+                <li>Monthly rolling analysis revealed sharp spikes post-2020, indicating strong economic effects.</li>
+                <li>By reverse-calculating estimated workforce sizes, we gained insight into company scale.</li>
+            </ul>
+            
+            <h2 class="project-section-title">📊 Interactive Tableau Dashboard</h2>
+            <div class='tableauPlaceholder' id='viz1743796755711' style='position: relative'>
+                <noscript>
+                    <a href='#'>
+                        <img alt='Exploratory Analysis of Tech Layoffs (2020–2023)' src='https://public.tableau.com/static/images/La/Layoffs_Dashboard_17437959337790/Dashboard1/1_rss.png' style='border: none' />
+                    </a>
+                </noscript>
+                <object class='tableauViz' style='display:none;'>
+                    <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                    <param name='embed_code_version' value='3' />
+                    <param name='site_root' value='' />
+                    <param name='name' value='Layoffs_Dashboard_17437959337790/Dashboard1' />
+                    <param name='tabs' value='no' />
+                    <param name='toolbar' value='yes' />
+                    <param name='static_image' value='https://public.tableau.com/static/images/La/Layoffs_Dashboard_17437959337790/Dashboard1/1.png' />
+                    <param name='animate_transition' value='yes' />
+                    <param name='display_static_image' value='yes' />
+                    <param name='display_spinner' value='yes' />
+                    <param name='display_overlay' value='yes' />
+                    <param name='display_count' value='yes' />
+                    <param name='language' value='en-GB' />
+                    <param name='filter' value='publish=yes' />
+                </object>
+            </div>
+            <script type='text/javascript'>
+                var divElement = document.getElementById('viz1743796755711');
+                var vizElement = divElement.getElementsByTagName('object')[0];
+                if (divElement.offsetWidth > 800) {
+                    vizElement.style.width = '1020px';
+                    vizElement.style.height = '2887px';
+                } else if (divElement.offsetWidth > 500) {
+                    vizElement.style.width = '1020px';
+                    vizElement.style.height = '2887px';
+                } else {
+                    vizElement.style.width = '100%';
+                    vizElement.style.height = '1927px';
+                }
+                var scriptElement = document.createElement('script');
+                scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+                vizElement.parentNode.insertBefore(scriptElement, vizElement);
+            </script>
+        </section>
+
+        <a href="index.html" class="back-to-home">← Back to Home</a>
+    </div>
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Mehmet Furkan Akpınar. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/mfakpinar" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/mfakpinar" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="mailto:akpinarmehmetfurkan@gmail.com"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
