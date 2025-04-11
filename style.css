@@ -41,6 +41,13 @@ body {
     margin-left: 0;
 }
 
+.highlight-keyword {
+    color: #aad4e3;
+    font-weight: 100;
+    font-size: 20px;
+    animation: blinkHighlight 1.5s infinite;
+}
+
 .sidebar .location {
     text-align: center;
     color: #999;
@@ -686,4 +693,26 @@ p {
         margin-left: auto;
         margin-right: auto;
     }
+}
+
+@keyframes blinkHighlight {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.highlight-keyword {
+    color: #2a8ebc;
+    font-weight: 600;
+    font-size: 25px;
+    animation: blinkHighlight 1.5s infinite;
+}
+.in-progress-text {
+    font-size: 14px;
+    color: #ccc;
+    font-weight: normal;
+    margin-left: 8px;
 }
