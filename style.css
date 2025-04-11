@@ -711,8 +711,9 @@ p {
     animation: blinkHighlight 1.5s infinite;
 }
 .in-progress-text {
-    font-size: 14px;
+    font-size: 17px;
     color: #ccc;
     font-weight: normal;
+    font-style: italic;
     margin-left: 8px;
 }

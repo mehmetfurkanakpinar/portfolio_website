@@ -1,4 +1,3 @@
-// script.js
 
 document.addEventListener("DOMContentLoaded", function () {
     const container = document.getElementById("typewriter");
@@ -19,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (charIndex < part.value.length) {
             if (part.type === "highlight") {
-                // Eğer highlight ise ayrı bir span'a karakter karakter ekle
                 if (!container.querySelector(".highlight-keyword:last-of-type")) {
                     const span = document.createElement("span");
                     span.className = "highlight-keyword";
